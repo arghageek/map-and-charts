@@ -1,6 +1,6 @@
 import { MapContainer, TileLayer, Circle, Popup } from 'react-leaflet';
 import './CountryMap.css';
-import { FormControl, Select, InputLabel, MenuItem, Box } from '@mui/material';
+import { Box } from '@mui/material';
 
 const casesTypeColors = {
   cases: {
@@ -17,18 +17,7 @@ const casesTypeColors = {
   },
 };
 
-const CountryMap = ({
-  center,
-  zoom,
-  countries,
-  setCountries,
-  selectedCountry,
-  setSelectedCountry,
-  handleCountryChange,
-  allCountries,
-  casesType,
-  selectedCountryData,
-}) => {
+const CountryMap = ({ center, zoom, allCountries, casesType }) => {
   const handlePlotData = (data, casesType = 'cases') => {
     return data.map((country) => (
       <Circle
@@ -60,28 +49,6 @@ const CountryMap = ({
 
   return (
     <Box marginTop={4}>
-      {/* select country dropdown */}
-      <FormControl sx={{ width: 200 }}>
-        <InputLabel id='demo-simple-select-label'>Countries</InputLabel>
-        <Select
-          labelId='demo-simple-select-label'
-          id='demo-simple-select'
-          value={selectedCountry}
-          label='Countries'
-          onChange={handleCountryChange}
-          variant='filled'
-        >
-          <MenuItem value='all'>All</MenuItem>
-          {countries?.map((country) => (
-            <MenuItem
-              key={country.name}
-              value={country.value}
-            >
-              {country.name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
       <div className='country-map'>
         <MapContainer
           center={center}

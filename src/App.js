@@ -13,7 +13,7 @@ function App() {
   const [selectedCountry, setSelectedCountry] = useState('all'); // contains selected country code from dropdown
   const [selectedCountryData, setSelectedCountryData] = useState({}); // contains selected countries all data
   const [center, setCenter] = useState({ lat: 20.5937, lng: 78.9629 });
-  const [zoom, setZoom] = useState(2);
+  const [zoom, setZoom] = useState(3);
 
   const fetchCountryWiseDiseaseData = async () => {
     const response = await getCountryWiseDiseaseData();
