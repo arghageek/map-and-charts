@@ -1,4 +1,4 @@
-import { FormControl, Select, InputLabel, MenuItem, Box, TextField } from '@mui/material';
+import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import 'react-date-range/dist/styles.css'; // main style file
@@ -6,7 +6,7 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRangePicker } from 'react-date-range';
 import moment from 'moment';
 import { getDiseaseInfoWithDate } from '../../api/dataWithDateApi';
-import numeral from 'numeral';
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -24,18 +24,17 @@ const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: 'top',
+      display: false,
     },
     title: {
-      display: true,
-      text: 'Chart.js Line Chart',
+      display: false,
     },
   },
 };
 
-const Graph = ({ countries, setCountries, selectedCountry, setSelectedCountry, handleCountryChange }) => {
-  const [graphData, setGraphData] = useState();
-  const [days, setDays] = useState(30);
+const Graph = () => {
+  const [graphData, setGraphData] = useState(); // stores formatted graph data
+  const [days, setDays] = useState(30); // chart for how many days
 
   const [selectionRange, setSelectionRange] = useState({
     startDate: moment(new Date()).subtract(6, 'd').toDate(),
@@ -71,6 +70,7 @@ const Graph = ({ countries, setCountries, selectedCountry, setSelectedCountry, h
 
   useEffect(() => {
     fetchGraphData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectionRange]);
 
   const handleSelectDateRange = (ranges) => {
@@ -86,34 +86,16 @@ const Graph = ({ countries, setCountries, selectedCountry, setSelectedCountry, h
 
   return (
     <div className='graph'>
-      {/* select country dropdown */}
-      <FormControl fullWidth>
-        <InputLabel id='demo-simple-select-label'>Countries</InputLabel>
-        <Select
-          labelId='demo-simple-select-label'
-          id='demo-simple-select'
-          value={selectedCountry}
-          label='Countries'
-          onChange={handleCountryChange}
-          variant='filled'
-        >
-          <MenuItem value='all'>All</MenuItem>
-          {countries?.map((country) => (
-            <MenuItem
-              key={country.name}
-              value={country.value}
-            >
-              {country.name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-
-      <DateRangePicker
-        ranges={[selectionRange]}
-        onChange={handleSelectDateRange}
-        maxDate={new Date()}
-      />
+      <Box
+        display='flex'
+        justifyContent='center'
+      >
+        <DateRangePicker
+          ranges={[selectionRange]}
+          onChange={handleSelectDateRange}
+          maxDate={new Date()}
+        />
+      </Box>
       {/* graph */}
       <Line
         options={options}
