@@ -1,4 +1,4 @@
-import { Map, TileLayer, Circle, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Circle, Popup } from 'react-leaflet';
 import './CountryMap.css';
 import { FormControl, Select, InputLabel, MenuItem, Box } from '@mui/material';
 
@@ -83,7 +83,7 @@ const CountryMap = ({
         </Select>
       </FormControl>
       <div className='country-map'>
-        <Map
+        <MapContainer
           center={center}
           zoom={zoom}
         >
@@ -93,7 +93,7 @@ const CountryMap = ({
           />
 
           {handlePlotData(allCountries, casesType)}
-        </Map>
+        </MapContainer>
       </div>
     </Box>
   );
